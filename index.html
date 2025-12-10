@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Finomercona | Master Stocks, ETFs, Bonds & Crypto</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-light: #dbeafe;
+      --secondary: #1e293b;
+      --gray-100: #f8fafc;
+      --gray-200: #e2e8f0;
+      --gray-300: #cbd5e1;
+      --gray-700: #334155;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --border: #e2e8f0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #ffffff;
+      color: var(--secondary);
+      line-height: 1.6;
+    }
+
+    .navbar-brand {
+      font-weight: 800;
+      font-size: 1.5rem;
+    }
+
+    .section-hero {
+      background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .card {
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+      border: 1px solid var(--gray-200);
+      transition: all 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      border-color: var(--primary);
+    }
+
+    .asset-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      margin: 0 auto 16px;
+    }
+
+    .stocks-icon { background-color: rgba(37, 99, 235, 0.1); color: var(--primary); }
+    .etfs-icon { background-color: rgba(16, 185, 129, 0.1); color: var(--success); }
+    .bonds-icon { background-color: rgba(245, 158, 11, 0.1); color: var(--warning); }
+    .crypto-icon { background-color: rgba(239, 68, 68, 0.1); color: var(--danger); }
+
+    .step-card {
+      text-align: center;
+      padding: 24px 16px;
+      border-radius: 12px;
+      background: var(--gray-100);
+    }
+
+    .step-number {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 12px;
+      font-weight: bold;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .pros-cons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .pros {
+      background: rgba(16, 185, 129, 0.08);
+      border-left: 4px solid var(--success);
+      padding: 20px;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .cons {
+      background: rgba(239, 68, 68, 0.08);
+      border-right: 4px solid var(--danger);
+      padding: 20px;
+      border-radius: 8px 0 0 8px;
+    }
+
+    .future-scope {
+      background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+      border: 1px solid #bbf7d0;
+      border-radius: 12px;
+      padding: 24px;
+    }
+
+    .strategy-card {
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .faq-question {
+      font-weight: 600;
+      padding: 16px 0;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .faq-answer {
+      padding: 0 0 16px 0;
+      display: none;
+    }
+
+    .stat-card {
+      text-align: center;
+      padding: 20px;
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .stat-label {
+      color: var(--gray-700);
+      font-size: 0.95rem;
+    }
+
+    .timeline {
+      position: relative;
+      padding-left: 30px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 12px;
+      height: calc(100% - 12px);
+      width: 2px;
+      background: var(--gray-200);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 32px;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -38px;
+      top: 8px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--primary);
+      border: 3px solid white;
+      box-shadow: 0 0 0 2px var(--primary);
+    }
+
+    .highlight {
+      background: linear-gradient(120deg, rgba(37, 99, 235, 0.15) 0%, transparent 100%);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .badge-educational {
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 30px;
+    }
+
+    .badge-beginner { background: #dbeafe; color: var(--primary); }
+    .badge-intermediate { background: #dcfce7; color: var(--success); }
+    .badge-advanced { background: #fef3c7; color: var(--warning); }
+
+    footer {
+      background: #f8fafc;
+      border-top: 1px solid var(--gray-200);
+      padding: 40px 0;
+    }
+
+    @media (max-width: 768px) {
+      .pros-cons { grid-template-columns: 1fr; }
+      .cons { border-radius: 0 0 8px 8px; border-right: none; border-top: 1px solid var(--gray-200); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white py-3 border-bottom">
+    <div class="container">
+      <a class="navbar-brand text-primary" href="#">
+        <i class="ri-finance-line me-2"></i>Finomercona
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link active" href="#stocks">Stocks</a></li>
+          <li class="nav-item"><a class="nav-link" href="#etfs">ETFs</a></li>
+          <li class="nav-item"><a class="nav-link" href="#bonds">Bonds</a></li>
+          <li class="nav-item"><a class="nav-link" href="#crypto">Crypto</a></li>
+          <li class="nav-item"><a class="nav-link" href="#compare">Compare</a></li>
+          <li class="nav-item"><a class="btn btn-primary ms-lg-3" href="#get-started">Get Started</a></li>
+          <li class=""nav-item><a class="btn btn-outline-primary ms-2" href="#about-us">About Us</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="section-hero py-5">
+    <div class="container">
+      <div class="row justify-content-center text-center">
+        <div class="col-lg-8">
+          <h1 class="display-4 fw-bold mb-4">Master Investing: Stocks, ETFs, Bonds & Crypto</h1>
+          <p class="lead text-gray-700 mb-4">
+            Clear, accurate, and actionable explanations — no jargon, no fluff. 
+            Learn how each asset works, how to invest, risks, and future potential.
+          </p>
+          <div class="d-flex justify-content-center gap-3 flex-wrap">
+            <a href="#stocks" class="btn btn-primary btn-lg px-4">Start with Stocks</a>
+            <a href="#compare" class="btn btn-outline-primary btn-lg px-4">Compare Assets</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="py-5 bg-gray-50">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-md-3">
+          <div class="stat-card">
+            <div class="stat-value">+12%</div>
+            <div class="stat-label">Avg. Stock Return (10yr)</div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="stat-card">
+            <div class="stat-value">$7.8T</div>
+            <div class="stat-label">Global ETF Assets (2025)</div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="stat-card">
+            <div class="stat-value">3.2%</div>
+            <div class="stat-label">Avg. Bond Yield (Investment Grade)</div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="stat-card">
+            <div class="stat-value">+200%</div>
+            <div class="stat-label">Crypto Adoption (2020-2025)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stocks Section -->
+  <section id="stocks" class="py-5">
+    <div class="container">
+      <div class="row mb-5">
+        <div class="col-lg-8 mx-auto text-center">
+          <div class="asset-icon stocks-icon mb-3">
+            <i class="ri-bar-chart-box-line"></i>
+          </div>
+          <h2 class="fw-bold mb-3">Stocks: Ownership in Companies</h2>
+          <p class="lead text-gray-700">
+            When you buy a stock, you buy a small piece of a company — becoming a partial owner with rights to profits and voting.
+          </p>
+        </div>
+      </div>
+
+      <div class="row mb-5">
+        <div class="col-lg-6">
+          <h3 class="mb-4">What Are Stocks?</h3>
+          <p>
+            A <span class="highlight">stock</span> (or <span class="highlight">share</span>) represents equity ownership in a corporation. 
+            Publicly traded companies issue shares on stock exchanges (e.g., NYSE, Nasdaq).
+          </p>
+          <ul class="mt-3">
+            <li><strong>Common Stock:</strong> Voting rights + dividends (if declared)</li>
+            <li><strong>Preferred Stock:</strong> Fixed dividends, priority in liquidation, but usually no voting rights</li>
+            <li><strong>Market Cap:</strong> Total value = Share Price × Shares Outstanding</li>
+          </ul>
+        </div>
+        <div class="col-lg-6">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title mb-3">Real-World Example: Apple (AAPL)</h5>
+              <table class="table table-sm">
+                <tr>
+                  <td>Price (2025)</td>
+                  <td>$198.42</td>
+                </tr>
+                <tr>
+                  <td>Market Cap</td>
+                  <td>$3.1 Trillion</td>
+                </tr>
+                <tr>
+                  <td>Dividend Yield</td>
+                  <td>0.52%</td>
+                </tr>
+                <tr>
+                  <td>P/E Ratio</td>
+                  <td>28.4</td>
+                </tr>
+              </table>
+              <p class="small text-muted mt-2">
+                Owning 10 shares = $1,984.20 investment + entitlement to 10 votes at shareholder meetings.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-5">
+        <div class="col-12">
+          <h3 class="mb-4">How to Buy & Sell Stocks</h3>
+          <div class="feature-grid">
+            <div class="step-card">
+              <div class="step-number">1</div>
+              <h5>Open a Brokerage Account</h5>
+              <p>Choose a platform: Fidelity, Charles Schwab, Vanguard, or Robinhood. No minimums at many brokers.</p>
+            </div>
+            <div class="step-card">
+              <div class="step-number">2</div>
+              <h5>Fund Your Account</h5>
+              <p>Link bank account → transfer funds (ACH: 1-3 days; wire: same day).</p>
+            </div>
+            <div class="step-card">
+              <div class="step-number">3</div>
+              <h5>Place an Order</h5>
+              <p>
+                <strong>Market Order:</strong> Buy now at current price<br>
+                <strong>Limit Order:</strong> Buy only at ≤ your price<br>
+                <strong>Stop-Loss:</strong> Sell automatically if price drops
+              </p>
+            </div>
+            <div class="step-card">
+              <div class="step-number">4</div>
+              <h5>Hold & Monitor</h5>
+              <p>Review quarterly earnings, news, and portfolio performance. Rebalance annually.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-5">
+        <div class="col-lg-6">
+          <div class="pros">
+            <h4 class="text-success mb-3"><i class="ri-thumb-up-line me-2"></i> Advantages</h4>
+            <ul>
+              <li><strong>High Long-Term Returns:</strong> Avg. 10% annually over 90+ years (S&P 500)</li>
+              <li><strong>Liquidity:</strong> Sell in seconds during market hours</li>
+              <li><strong>Dividend Income:</strong> Many companies pay quarterly cash</li>
+              <li><strong>Ownership Rights:</strong> Vote on board, mergers, policy</li>
+              <li><strong>Fractional Shares:</strong> Invest $5 in Amazon or Google</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="cons">
+            <h4 class="text-danger mb-3"><i class="ri-thumb-down-line me-2"></i> Risks</h4>
+            <ul>
+              <li><strong>Volatility:</strong> Prices swing daily (e.g., -30% in a crash)</li>
+              <li><strong>Company Risk:</strong> Bankruptcy = total loss (e.g., Lehman 2008)</li>
+              <li><strong>Emotional Bias:</strong> Fear/greed lead to poor timing</li>
+              <li><strong>Time Commitment:</strong> Research needed for stock picking</li>
+              <li><strong>Tax Complexity:</strong> Short-term vs. long-term capital gains</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-5">
+        <div class="col-12">
+          <div class="future-scope">
+            <h3 class="mb-4">Future Scope & Trends (2025-2030)</h3>
+            <div class="row">
+              <div class="col-md-6">
+                <h5>🚀 Growth Drivers</h5>
+                <ul>
+                  <li><strong>AI Integration:</strong> Companies using AI see 2-3x revenue growth (McKinsey)</li>
+                  <li><strong>Quantum Computing:</strong> Drug discovery, logistics optimization → new winners</li>
+                  <li><strong>ESG Mainstreaming:</strong> $53T in ESG assets by 2025 (Bloomberg)</li>
+                  <li><strong>Emerging Markets:</strong> India, Vietnam, Indonesia outpacing developed economies</li>
+                </ul>
+              </div>
+              <div class="col-md-6">
+                <h5>🎯 Top Sectors to Watch</h5>
+                <ul>
+                  <li><span class="badge bg-success me-2">High Growth</span> Semiconductors, AI Infrastructure</li>
+                  <li><span class="badge bg-success me-2">Stable</span> Healthcare (Aging Population)</li>
+                  <li><span class="badge bg-warning text-dark me-2">Cyclical</span> Industrials, Materials</li>
+                  <li><span class="badge bg-danger me-2">Disruption Risk</span> Traditional Retail, Fossil Fuels</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+          <h3 class="mb-4">Who Should Invest in Stocks?</h3>
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex align-items-start mb-3">
+                <span class="badge badge-beginner me-3">Beginner</span>
+                <div>
+                  <h5>Start Here</h5>
+                  <p>Invest via <strong>low-cost index ETFs</strong> (e.g., VOO, VTI). Avoid picking individual stocks until you understand P/E, debt, cash flow.</p>
+                </div>
+              </div>
+              <div class="d-flex align-items-start mb-3">
+                <span class="badge badge-intermediate me-3">Intermediate</span>
+                <div>
+                  <h5>Build a Core-Satellite Portfolio</h5>
+                  <p>80% in broad-market ETFs + 20% in 5-10 high-conviction stocks (tech, healthcare).</p>
+                </div>
+              </div>
+              <div class="d-flex align-items-start">
+                <span class="badge badge-advanced me-3">Advanced</span>
+                <div>
+                  <h5>Thematic & Factor Investing</h5>
+                  <p>Target megatrends (clean energy, genomics) or factors (value, momentum, quality).</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ETFs Section -->
+  <section id="etfs" class="py-5 bg-light">
+    <div class="container">
+      <div class="row mb-5">
+        <div class="col-lg-8 mx-auto text-center">
+          <div class="asset-icon etfs-icon mb-3">
+            <i class="ri-funds-line"></i>
+          </div>
+          <h2 class="fw-bold mb-3">ETFs: Instant Diversification</h2>
+          <p class="lead text-gray-700">
+            Exchange-Traded Funds bundle hundreds of assets into a single ticker — trade like a stock, diversify like a pro.
+          </p>
+        </div>
+      </div>
+
+      <div class="row mb-5">
+        <div class="col-lg-6">
+          <h3 class="mb-4">What Are ETFs?</h3>
+          <p>
+            An <span class="highlight">ETF</span> is a basket of securities (stocks, bonds, commodities) that tracks an index, sector, or strategy.
+            Trades on exchanges in real-time like stocks.
+          </p>
+          <h5 class="mt-4 mb-3">Key Types:</h5>
+          <ul>
+            <li><strong>Broad Market:</strong> VTI (Total US Stock Market), VXUS (International)</li>
+            <li><strong>Sector:</strong> XLK (Tech), XLF (Financials)</li>
+            <li><strong>Thematic:</strong> ARKK (Innovation), ICLN (Clean Energy)</li>
+            <li><strong>Bond:</strong> BND (Total Bond Market), TLT (Long-Term Treasuries)</li>
+            <li><strong>Smart Beta:</strong> QUAL (Quality), MTUM (Momentum)</li>
+          </ul>
+        </div>
+        <div class="col-lg-6">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title mb-3">ETF vs. Mutual Fund</h5>
+              <table class="table table-sm">
+                <thead>
+                  <tr>
+                    <th>Feature</th>
+                    <th>ETF</th>
+                    <th>Mutual Fund</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>Trading</td><td>Intraday (like stock)</td><td>End-of-day only</td></tr>
+                  <tr><td>Fees</td><td>Low (avg. 0.20%)</td><td>Higher (avg. 0.75%)</td></tr>
+                  <tr><td>Tax Efficiency</td><td>High (in-kind redemptions)</td><td>Lower (capital gains distributions)</td></tr>
+                  <tr><td>Minimums</td><td>$1 (fractional)</td><td>$1,000–$3,000</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-5">
+        <div class="col-12">
+          <h3 class="mb-4">How to Buy & Sell ETFs</h3>
+          <p>Same process as stocks — but with key advantages:</p>
+          <div class="feature-grid">
+            <div class="strategy-card">
+              <h5><i class="ri-money-dollar-circle-line me-2 text-success"></i> $100 Example</h5>
+              <p>Buy 0.5 shares of VOO ($200/share) → instant exposure to 500+ US companies.</p>
+            </div>
+            <div class="strategy-card">
+              <h5><i class="ri-shield-check-line me-2 text-primary"></i> Automatic Diversification</h5>
+              <p>One ETF = hundreds of holdings. Eliminates single-stock risk.</p>
+            </div>
+            <div class="strategy-card">
+              <h5><i class="ri-refresh-line me-2 text-warning"></i> Rebalancing</h5>
+              <p>Fund managers adjust holdings quarterly — you stay aligned with the index.</p>
+            </div>
+            <div class="strategy-card">
+              <h5><i class="ri-percent-line me-2 text-success"></i> Low Cost</h5>
+              <p>VOO expense ratio: 0.03% → $3/year per $10,000 invested.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-5">
+        <div class="col-12">
+          <div class="future-scope">
+            <h3 class="mb-4">Future Scope & Trends (2025-2030)</h3>
+            <div class="row">
+              <div class="col-md-6">
+                <h5>📈 Growth Catalysts</h5>
+                <ul>
+                  <li><strong>Democratization:</strong> Fractional shares + $0 commissions = mass adoption</li>
+                  <li><strong>Thematic Explosion:</strong> AI, Blockchain, Water, Genomics ETFs growing 40% YoY</li>
+                  <li><strong>Active ETFs:</strong> ARK-style funds with manager discretion (now 500+ in US)</li>
+                  <li><strong>Direct Indexing:</strong> Custom ETF-like portfolios with tax optimization</li>
+                </ul>
+              </div>
+              <div class="col-md-6">
+                <h5>💡 Top ETF Strategies</h5>
+                <ul>
+                  <li><strong>Core Holding:</strong> VTI + VXUS (90% of portfolio)</li>
+                  <li><strong>Satellite Boost:</strong> Add ICLN (Clean Energy) or ARKW (Disruptive Tech)</li>
+                  <li><strong>Income Focus:</strong> SCHD (Dividend Aristocrats) + TLT (Bonds)</li>
+                  <li><strong>Risk Control:</strong> HEDJ (Currency-Hedged Intl) + GLD (Gold)</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+          <h3 class="mb-4">Who Should Invest in ETFs?</h3>
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex align-items-start mb-3">
+                <span class="badge badge-beginner me-3">Beginner</span>
+                <div>
+                  <h5>Ideal Starting Point</h5>
+                  <p>80-100% of your portfolio in 2-3 ETFs (e.g., VTI + BND). Set up automatic investing.</p>
+                </div>
+              </div>
+              <div class="d-flex align-items-start mb-3">
+                <span class="badge badge-intermediate me-3">Intermediate</span>
+                <div>
+                  <h5>Strategic Allocation</h5>
+                  <p>Split across US/Intl/Small-Cap/Bonds. Add sector ETFs for tactical tilts.</p>
+                </div>
+              </div>
+              <div class="d-flex align-items-start">
+                <span class="badge badge-advanced me-3">Advanced</span>
+                <div>
+                  <h5>Factor Rotation</h5>
+                  <p>Shift between value/momentum/quality ETFs based on economic cycle (e.g., VALQ in recessions).</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bonds Section -->
+  <section id="bonds" class="py-5">
+    <div class="container">
+      <div class="row mb-5">
+        <div class="col-lg-8 mx-auto text-center">
+          <div class="asset-icon bonds-icon mb-3">
+            <i class="ri-bank-line"></i>
+          </div>
+          <h2 class="fw-bold mb-3">Bonds: Lending for Steady Income</h2>
+          <p class="lead text-gray-700">
+            When you buy a bond, you lend money to a government or corporation in exchange for regular interest payments and return of principal.
+          </p>
+        </div>
+      </div>
+
+      <div class="row mb-5">
+        <div class="col-lg-6">
+          <h3 class="mb-4">What Are Bonds?</h3>
+          <p>
+            A <span class="highlight">bond</span> is a debt security. You — the bondholder — are the lender. The issuer (e.g., US Treasury, Apple) is the borrower.
+          </p>
+          <h5 class="mt-4 mb-2">Key Terms:</h5>
+          <ul>
+            <li><strong>Face Value:</strong> Amount repaid at maturity (usually $1,000)</li>
+            <li><strong>Coupon Rate:</strong> Annual interest % (e.g., 4% = $40/year on $1,000)</li>
+            <li><strong>Maturity:</strong> When principal is repaid (1yr, 10yr, 30yr)</li>
+            <li><strong>Yield:</strong> Actual return (changes with market price)</li>
+            <li><strong>Credit Rating:</strong> Risk assessment (AAA = safest, CCC = junk)</li>
+          </ul>
+        </div>
+        <div class="col-lg-6">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title mb-3">Bond Types Compared</h5>
+              <table class="table table-sm">
+                <tr>
+                  <td><strong>Treasuries</strong></td>
+                  <td>US Government | AAA | Low yield | Tax-exempt (state/local)</td>
+                </tr>
+                <tr>
+                  <td><strong>Munis</strong></td>
+                  <td>State/City | AA | Medium yield | Federal tax-exempt</td>
+                </tr>
+                <tr>
+                  <td><strong>Investment-Grade Corps</strong></td>
+                  <td>Corporations | BBB+ | Higher yield | Taxable</td>
+                </tr>
+                <tr>
+                  <td><strong>High-Yield (Junk)</strong></td>
+                  <td>Corporations | BB- | Highest yield | Highest risk</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-5">
+        <div class="col-12">
+          <h3 class="mb-4">How to Buy & Sell Bonds</h3>
+          <div class="feature-grid">
+            <div class="step-card">
+              <div class="step-number">1</div>
+              <h5>Through ETFs (Recommended)</h5>
+              <p>BND (Total Bond), AGG (US Aggregate), TLT (20+ Yr Treasuries). Instant diversification.</p>
+            </div>
+            <div class="step-card">
+              <div class="step-number">2</div>
+              <h5>Direct via Broker</h5>
+              <p>Buy individual bonds on Fidelity/Schwab. Minimums: $1,000. Watch for markups.</p>
+            </div>
+            <div class="step-card">
+              <div class="step-number">3</div>
+              <h5>TreasuryDirect.gov</h5>
+              <p>Buy US Treasuries directly (no fees). Great for laddering strategies.</p>
+            </div>
+            <div class="step-card">
+              <div class="step-number">4</div>
+              <h5>Sell Before Maturity</h5>
+              <p>Bonds trade on secondary markets. Price moves inversely to interest rates.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-5">
+        <div class="col-lg-6">
+          <div class="pros">
+            <h4 class="text-success mb-3"><i class="ri-thumb-up-line me-2"></i> Advantages</h4>
+            <ul>
+              <li><strong>Income Stability:</strong> Predictable coupon payments</li>
+              <li><strong>Capital Preservation:</strong> Principal returned at maturity (if no default)</li>
+              <li><strong>Low Volatility:</strong> Less price swing than stocks</li>
+              <li><strong>Diversification:</strong> Bonds often rise when stocks fall (negative correlation)</li>
+              <li><strong>Tax Benefits:</strong> Munis = federal tax-free; Treasuries = state tax-free</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="cons">
+            <h4 class="text-danger mb-3"><i class="ri-thumb-down-line me-2"></i> Risks</h4>
+            <ul>
+              <li><strong>Interest Rate Risk:</strong> When rates ↑, bond prices ↓ (longer maturity = higher risk)</li>
+              <li><strong>Inflation Risk:</strong> Fixed payments lose purchasing power over time</li>
+              <li><strong>Credit Risk:</strong> Issuer defaults (junk bonds: 2-5% annual default rate)</li>
+              <li><strong>Liquidity Risk:</strong> Hard to sell individual bonds quickly without discount</li>
+              <li><strong>Reinvestment Risk:</strong> Coupons reinvested at lower rates if yields fall</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-5">
+        <div class="col-12">
+          <div class="future-scope">
+            <h3 class="mb-4">Future Scope & Trends (2025-2030)</h3>
+            <div class="row">
+              <div class="col-md-6">
+                <h5>📉 Rate Environment</h5>
+                <ul>
+                  <li>Fed funds rate stabilizing near 3.5-4.0%</li>
+                  <li>10-Year Treasury yield: 3.8-4.5% range</li>
+                  <li>“Higher for longer” → better bond returns vs. 2020-2022</li>
+                </ul>
+              </div>
+              <div class="col-md-6">
+                <h5>💡 Strategic Shifts</h5>
+                <ul>
+                  <li><strong>Laddering:</strong> Buy bonds maturing in 1,3,5,7,10 years → reduce rate risk</li>
+                  <li><strong>TIPS Surge:</strong> Inflation-protected securities gaining popularity</li>
+                  <li><strong>Green Bonds:</strong> ESG-labeled debt ↑ 300% since 2020 (Climate bonds)</li>
+                  <li><strong>Short Duration Focus:</strong> 1-3 year bonds favored in uncertain rate environment</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+          <h3 class="mb-4">Who Should Invest in Bonds?</h3>
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex align-items-start mb-3">
+                <span class="badge badge-beginner me-3">Beginner</span>
+                <div>
+                  <h5>Core Holding</h5>
+                  <p>20-40% of portfolio in BND or AGG. Critical for risk reduction.</p>
+                </div>
+              </div>
+              <div class="d-flex align-items-start mb-3">
+                <span class="badge badge-intermediate me-3">Intermediate</span>
+                <div>
+                  <h5>Tactical Allocation</h5>
+                  <p>Adjust duration based on rate outlook. Add TIPS for inflation hedge.</p>
+                </div>
+              </div>
+              <div class="d-flex align-items-start">
+                <span class="badge badge-advanced me-3">Advanced</span>
+                <div>
+                  <h5>Barbell Strategy</h5>
+                  <p>Split between short-term (1-2yr) and long-term (20+yr) bonds → capture yield curve extremes.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Crypto Section -->
+  <section id="crypto" class="py-5 bg-light">
+    <div class="container">
+      <div class="row mb-5">
+        <div class="col-lg-8 mx-auto text-center">
+          <div class="asset-icon crypto-icon mb-3">
+            <i class="ri-bit-coin-line"></i>
+          </div>
+          <h2 class="fw-bold mb-3">Cryptocurrencies: Digital Assets</h2>
+          <p class="lead text-gray-700">
+            Decentralized digital money and programmable assets built on blockchain technology — enabling new financial systems.
+          </p>
+        </div>
+      </div>
+
+      <div class="row mb-5">
+        <div class="col-lg-6">
+          <h3 class="mb-4">What Is Crypto?</h3>
+          <p>
+            <span class="highlight">Cryptocurrencies</span> are digital assets secured by cryptography and decentralized networks (blockchains).
+            No central bank or authority controls them.
+          </p>
+          <h5 class="mt-4 mb-2">Major Categories:</h5>
+          <ul>
+            <li><strong>Store of Value:</strong> Bitcoin (BTC) — “digital gold”</li>
+            <li><strong>Smart Contract Platforms:</strong> Ethereum (ETH), Solana (SOL)</li>
+            <li><strong>Stablecoins:</strong> USDC, DAI — pegged to $1</li>
+            <li><strong>DeFi Tokens:</strong> UNI (Uniswap), AAVE (lending)</li>
+            <li><strong>Meme Coins:</strong> DOGE, SHIB — community-driven, high risk</li>
+          </ul>
+        </div>
+        <div class="col-lg-6">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title mb-3">How Blockchains Work</h5>
+              <div class="timeline">
+                <div class="timeline-item">
+                  <h6>1. Transaction Created</h6>
+                  <p>You send 1 ETH to a friend.</p>
+                </div>
+                <div class="timeline-item">
+                  <h6>2. Broadcast to Network</h6>
+                  <p>Nodes validate signature & balance.</p>
+                </div>
+                <div class="timeline-item">
+                  <h6>3. Mining/Validation</h6>
+                  <p>Miners (PoW) or Validators (PoS) bundle tx into a block.</p>
+                </div>
+                <div class="timeline-item">
+                  <h6>4. Block Added</h6>
+                  <p>Block appended to chain → transaction confirmed.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-5">
+        <div class="col-12">
+          <h3 class="mb-4">How to Buy & Sell Crypto</h3>
+          <div class="feature-grid">
+            <div class="step-card">
+              <div class="step-number">1</div>
+              <h5>Choose a Platform</h5>
+              <p>
+                <strong>CEX (Centralized):</strong> Coinbase, Kraken (easiest for beginners)<br>
+                <strong>DEX (Decentralized):</strong> Uniswap, PancakeSwap (self-custody)
+              </p>
+            </div>
+            <div class="step-card">
+              <div class="step-number">2</div>
+              <h5>Verify Identity</h5>
+              <p>KYC required on CEXs (ID + selfie). Takes 5-30 mins.</p>
+            </div>
+            <div class="step-card">
+              <div class="step-number">3</div>
+              <h5>Fund Account</h5>
+              <p>Bank transfer (ACH), debit card (faster, higher fees), or wire.</p>
+            </div>
+            <div class="step-card">
+              <div class="step-number">4</div>
+              <h5>Buy & Store Safely</h5>
+              <p>Transfer to hardware wallet (Ledger) for large amounts. Never leave on exchange long-term.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-5">
+        <div class="col-lg-6">
+          <div class="pros">
+            <h4 class="text-success mb-3"><i class="ri-thumb-up-line me-2"></i> Advantages</h4>
+            <ul>
+              <li><strong>24/7 Markets:</strong> Trade anytime, anywhere</li>
+              <li><strong>High Growth Potential:</strong> BTC +9,000,000% since 2010</li>
+              <li><strong>Decentralization:</strong> Censorship-resistant, no gatekeepers</li>
+              <li><strong>Programmability:</strong> Smart contracts enable DeFi, NFTs, DAOs</li>
+              <li><strong>Global Access:</strong> Bank the unbanked (1.7B people without banks)</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="cons">
+            <h4 class="text-danger mb-3"><i class="ri-thumb-down-line me-2"></i> Risks</h4>
+            <ul>
+              <li><strong>Extreme Volatility:</strong> ±20% in a day common</li>
+              <li><strong>Regulatory Uncertainty:</strong> SEC lawsuits, country bans</li>
+              <li><strong>Hack Risk:</strong> $3B lost to hacks in 2022 (exchanges, bridges)</li>
+              <li><strong>Scams & Rug Pulls:</strong> 3,200+ malicious tokens identified in 2023</li>
+              <li><strong>Tax Complexity:</strong> Every trade = taxable event in US</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-5">
+        <div class="col-12">
+          <div class="future-scope">
+            <h3 class="mb-4">Future Scope & Trends (2025-2030)</h3>
+            <div class="row">
+              <div class="col-md-6">
+                <h5>🚀 Institutional Adoption</h5>
+                <ul>
+                  <li>Spot Bitcoin ETFs approved → $50B+ inflows expected</li>
+                  <li>BlackRock, Fidelity building tokenized fund infrastructure</li>
+                  <li>Central Bank Digital Currencies (CBDCs) in 130+ countries</li>
+                </ul>
+              </div>
+              <div class="col-md-6">
+                <h5>💡 Real-World Utility</h5>
+                <ul>
+                  <li><strong>DeFi 3.0:</strong> Real-world assets (RWAs) tokenized: bonds, real estate, invoices</li>
+                  <li><strong>Modular Blockchains:</strong> Celestia, EigenLayer → scalable, secure infrastructure</li>
+                  <li><strong>AI + Crypto:</strong> Decentralized compute markets (Render, Akash)</li>
+                  <li><strong>Regulation Clarity:</strong> MiCA (EU), FIT21 (US) → safer ecosystem</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+          <h3 class="mb-4">Who Should Invest in Crypto?</h3>
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex align-items-start mb-3">
+                <span class="badge badge-beginner me-3">Beginner</span>
+                <div>
+                  <h5>Small Allocation Only</h5>
+                  <p>1-5% of portfolio in BTC + ETH only. Use dollar-cost averaging ($10/week).</p>
+                </div>
+              </div>
+              <div class="d-flex align-items-start mb-3">
+                <span class="badge badge-intermediate me-3">Intermediate</span>
+                <div>
+                  <h5>Diversified Exposure</h5>
+                  <p>50% BTC, 30% ETH, 20% established altcoins (SOL, ADA). Self-custody via hardware wallet.</p>
+                </div>
+              </div>
+              <div class="d-flex align-items-start">
+                <span class="badge badge-advanced me-3">Advanced</span>
+                <div>
+                  <h5>Active Participation</h5>
+                  <p>Staking, yield farming, DAO governance. Understand smart contract risks.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Comparison Section -->
+  <section id="compare" class="py-5">
+    <div class="container">
+      <div class="row mb-5">
+        <div class="col-12 text-center">
+          <h2 class="fw-bold mb-3">Asset Class Comparison</h2>
+          <p class="lead text-gray-700">Which fits your goals, risk tolerance, and timeline?</p>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-bordered align-middle">
+          <thead class="table-light">
+            <tr>
+              <th>Feature</th>
+              <th>Stocks</th>
+              <th>ETFs</th>
+              <th>Bonds</th>
+              <th>Crypto</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Best For</strong></td>
+              <td>Growth, Ownership</td>
+              <td>Diversification, Simplicity</td>
+              <td>Income, Stability</td>
+              <td>High Growth, Innovation</td>
+            </tr>
+            <tr>
+              <td><strong>Risk Level</strong></td>
+              <td>High</td>
+              <td>Medium</td>
+              <td>Low-Medium</td>
+              <td>Very High</td>
+            </tr>
+            <tr>
+              <td><strong>Return Potential (Avg)</strong></td>
+              <td>7-10% annually</td>
+              <td>6-9% annually</td>
+              <td>2-5% annually</td>
+              <td>Highly Variable</td>
+            </tr>
+            <tr>
+              <td><strong>Liquidity</strong></td>
+              <td>High (market hours)</td>
+              <td>High (market hours)</td>
+              <td>Medium (ETFs high)</td>
+              <td>Very High (24/7)</td>
+            </tr>
+            <tr>
+              <td><strong>Time to Learn</strong></td>
+              <td>High (stock picking)</td>
+              <td>Low (ETF selection)</td>
+              <td>Medium (duration, credit)</td>
+              <td>High (tech, security)</td>
+            </tr>
+            <tr>
+              <td><strong>Tax Efficiency</strong></td>
+              <td>Medium (LTCG favorable)</td>
+              <td>High (in-kind redemptions)</td>
+              <td>Low (ordinary income)</td>
+              <td>Low (every trade taxed)</td>
+            </tr>
+            <tr>
+              <td><strong>Ideal Allocation</strong></td>
+              <td>40-80% (core)</td>
+              <td>50-100% (core)</td>
+              <td>10-40% (stability)</td>
+              <td>0-5% (satellite)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="row mt-5">
+        <div class="col-lg-8 mx-auto">
+          <div class="card border-success">
+            <div class="card-body">
+              <h4 class="text-success mb-3"><i class="ri-lightbulb-line me-2"></i> Key Insight</h4>
+              <p>
+                <strong>Don’t pick one — combine them.</strong> A balanced portfolio uses:
+              </p>
+              <ul>
+                <li><span class="text-primary">Stocks/ETFs</span> for long-term growth</li>
+                <li><span class="text-warning">Bonds</span> to reduce volatility and provide income</li>
+                <li><span class="text-danger">Crypto</span> as a small, high-conviction satellite holding</li>
+              </ul>
+              <p class="mb-0 mt-3">
+                Start with ETFs (VTI + BND), then expand as knowledge grows.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Get Started -->
+  <section id="get-started" class="py-5 bg-primary text-white">
+    <div class="container">
+      <div class="row justify-content-center text-center">
+        <div class="col-lg-8">
+          <h2 class="fw-bold mb-4">Ready to Begin Your Investing Journey?</h2>
+          <p class="lead mb-4">
+            Start small, learn consistently, and let compounding work for you.
+          </p>
+          <div class="d-flex flex-column flex-md-row justify-content-center gap-3">
+            <a href="#" class="btn btn-light btn-lg px-5">Download Beginner's Guide (PDF)</a>
+            <a href="#" class="btn btn-outline-light btn-lg px-5">Watch 10-Minute Video Course</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+ <section id="about-us" class="py-5">
+  <div class="container">
+    <h2 class="fw-bold mb-4 text-center">About Us</h2>
+
+    <p class="mb-4">
+      This website is created with the purpose of providing clear, structured, and accessible financial education to learners who want to understand how different asset classes work without feeling overwhelmed by technical language or market complexity. Our goal is to break down investment concepts into easy-to-follow explanations that help users build a strong and confident understanding of financial systems at their own pace. Whether someone is beginning with stocks, exploring ETFs, understanding bonds, or discovering how cryptocurrencies operate, this website aims to make learning smooth, reliable, and enjoyable. Every topic is presented with careful attention to detail so learners can gain practical awareness without confusion. We focus entirely on concept-based education rather than promoting any specific investment decisions or financial products. The content is designed to support personal learning, independent thinking, and long-term financial literacy. This website exists solely for educational purposes and does not offer financial, legal, or investment advice of any kind. All information shared here should be interpreted only as knowledge-building material intended to help users understand general financial concepts.
+    </p>
+
+    <p class="mb-4">
+      The vision of this website is to create a high-quality learning space where users can explore financial markets with clarity and confidence while avoiding the misinformation and complexity often found online. We aim to simplify the learning journey by offering structured explanations, practical examples, and step-by-step guidance that make it easier for users to understand how different financial tools and markets function. From ownership-based investing to diversified funds, from steady-income securities to decentralized digital assets, this website covers a broad range of topics in a balanced and learner-friendly manner. Our approach emphasizes transparency, objectivity, and simplicity, ensuring that users receive information that enhances their understanding rather than influencing their decisions. We do not encourage buying or selling any asset; instead, we focus purely on education that strengthens knowledge and awareness. All materials on this website are intended only for learning and should not replace professional financial assistance. This platform functions entirely as an educational resource and should not be interpreted as actionable investment guidance.
+    </p>
+
+    <p class="mb-4">
+      This website follows a neutral, research-oriented approach that aims to help learners understand the benefits, risks, differences, and practical use cases associated with various financial assets. Our goal is to build a solid foundation of financial literacy by presenting content that is detailed, reliable, and easy to understand. We believe that responsible learning requires understanding both the advantages and limitations of each concept, which is why we highlight real-world examples, risk factors, comparative insights, and future trends without offering recommendations. Users can explore different asset categories, learn how markets respond to economic conditions, and develop a broader knowledge of how financial systems operate. However, this educational content cannot predict market movements or guarantee any specific outcomes. We do not provide personalized advice, performance estimates, or investment predictions. All information on this website should be used only as conceptual guidance for educational purposes. Users should always seek professional assistance before making real financial decisions or investments.
+    </p>
+
+    <p class="mb-4">
+      The structure of this website is designed to support learners at every stage by offering fundamental explanations, intermediate insights, and advanced conceptual breakdowns in a clear and organized manner. We combine practical examples, comparison tables, illustrations, step-based guides, and simplified terminology to ensure that users can understand even complex financial ideas without difficulty. Our content encourages learners to think critically, explore responsibly, and build long-term knowledge rather than focusing on short-term trends or speculative approaches. We do not promote any investment strategies, allocation models, or trading methods because this website is strictly educational and not intended to act as a financial advisory service. Users should treat every explanation as general information meant to build literacy. The platform does not collect personal financial data, offer recommendations, or evaluate individual situations. All learning materials published here are provided for educational purposes only and should not be considered a substitute for licensed professional guidance.
+    </p>
+
+    <p class="mb-4">
+      This website is dedicated to helping learners develop a responsible and knowledgeable approach to understanding financial markets without influencing their personal investment decisions. All examples, charts, comparisons, and explanations included here are crafted to support learning, not to direct users toward any particular action. We strongly encourage individuals to supplement their understanding with additional research, independent study, and professional consultation before engaging in any form of financial activity. While we strive to maintain accuracy and clarity, financial markets change rapidly, and real-world outcomes can differ significantly from theoretical concepts. Therefore, the information on this website should not be used to predict returns, measure performance, or make investment choices. By using this website, users acknowledge that all materials are meant solely for educational purposes and do not constitute financial, legal, or investment advice. Our commitment is to support informed learning, promote financial awareness, and help users gain a deeper understanding of concepts—not to influence real investing decisions or behaviors.
+    </p>
+
+  </div>
+</section>
+
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 mb-4">
+          <h5 class="text-primary fw-bold mb-3">Finomercona</h5>
+          <p class="text-gray-700">
+            Empowering investors with clear, accurate, and actionable financial education — no fluff, no sales pitch.
+          </p>
+        </div>
+        <div class="col-md-2 mb-4">
+          <h6 class="fw-bold mb-3">Assets</h6>
+          <ul class="list-unstyled">
+            <li><a href="#stocks" class="text-gray-700">Stocks</a></li>
+            <li><a href="#etfs" class="text-gray-700">ETFs</a></li>
+            <li><a href="#bonds" class="text-gray-700">Bonds</a></li>
+            <li><a href="#crypto" class="text-gray-700">Crypto</a></li>
+          </ul>
+        </div>
+        <div class="col-md-2 mb-4">
+          <h6 class="fw-bold mb-3">Resources</h6>
+          <ul class="list-unstyled">
+            <li><a href="#" class="text-gray-700">Glossary</a></li>
+            <li><a href="#" class="text-gray-700">Calculators</a></li>
+            <li><a href="#" class="text-gray-700">Blog</a></li>
+            <li><a href="#" class="text-gray-700">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4 mb-4">
+          <h6 class="fw-bold mb-3">Stay Updated</h6>
+          <p class="text-gray-700 mb-3">Get monthly insights and market updates.</p>
+          <div class="input-group">
+            <input type="email" class="form-control" placeholder="Your email">
+            <button class="btn btn-primary">Subscribe</button>
+          </div>
+        </div>
+      </div>
+      <div class="border-top mt-4 pt-4 text-center text-gray-700">
+        <p class="mb-0">© 2025 Finomercona. For educational purposes only. Not financial advice.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // FAQ Toggle
+    document.querySelectorAll('.faq-question').forEach(item => {
+      item.addEventListener('click', () => {
+        const answer = item.nextElementSibling;
+        const icon = item.querySelector('i');
+        
+        if (answer.style.display === 'block') {
+          answer.style.display = 'none';
+          icon.className = 'ri-add-line';
+        } else {
+          answer.style.display = 'block';
+          icon.className = 'ri-subtract-line';
+        }
+      });
+    });
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          window.scrollTo({
+            top: target.offsetTop - 80,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
+
